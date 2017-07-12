@@ -1,0 +1,16 @@
+/*** measurements ***/
+
+/* header */
+$header-left-width: 20%;
+$header-right-width: 20%;
+$header-center-width: calc( 100% - #{$header-right-width} - #{$header-left-width} );
+
+/* footer */
+$footer-left-width: 500px;
+$footer-right-width: 450px;
+$footer-center-width: calc( 100% - #{$footer-right-width} - #{$footer-left-width} );
+
+/* site */
+$max-site-width: 1180px;
+$slider-height: 600px;
+$banner-height: 400px;
