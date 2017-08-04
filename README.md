@@ -12,9 +12,9 @@ Instructions
 * fill in credentials to setup wordpres (root root for database)
 * once set up open ruby command prompt
 * cd to your directory
-* cd /wp-content/themes
+* cd wp-content/themes
 * git clone https://github.com/LittleWolff/wolffpress.git
-* Log into wordpress's backend (localhost/wp-admin)
+* Log into wordpress's backend (http://localhost/wp-admin or may have an extension based on port for instance if you use port 3000 your path will be http://localhost:3000/wp-admin)
 * click appearance
 * Set Wolff Press as the new theme
 * click plugins
@@ -29,7 +29,7 @@ That's it for the setup!
 
 To begin developing always make sure your server is running then cd into the wolffpress theme:
 
-cd <YourDirectory>/wp-content/themes/wolffpress
+cd <YourDirectory>wp-content/themes/wolffpress
 
 Then run the command:
 
