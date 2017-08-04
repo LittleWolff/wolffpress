@@ -21,8 +21,11 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 --------------------------------------------------------------*/
 /*** Fonts ***/
 /*** measurements ***/
+/* header logo */
 /* header */
+/* left and right variables must have a unit of measurement such as % or px otherwise calc will not work! */
 /* footer */
+/* left and right variables must have a unit of measurement such as % or px otherwise calc will not work! */
 /* site */
 /*--------------------------------------------------------------
 # Content
@@ -877,10 +880,11 @@ header .header-wrapper {
   margin: auto;
   padding: 0px 15px;
   position: relative; }
+  header .header-wrapper .header-logo {
+    min-width: 150px; }
   header .header-wrapper .header-left {
     flex: 1 1 20%;
-    align-self: center;
-    min-width: 150px; }
+    align-self: center; }
   header .header-wrapper .header-center {
     float: none;
     width: auto;
@@ -999,13 +1003,13 @@ footer {
     margin: auto; }
   footer .footer-navigation {
     display: inline-block;
-    width: auto; }
+    width: 100%; }
     footer .footer-navigation ul {
       list-style: none;
       display: flex;
       margin: 0;
       padding: 0;
-      width: 500px; }
+      width: 100%; }
       footer .footer-navigation ul li {
         float: none;
         text-align: center;

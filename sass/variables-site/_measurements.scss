@@ -1,11 +1,16 @@
 /*** measurements ***/
 
+/* header logo */
+$header-logo-min-width: 150px;
+
 /* header */
+/* left and right variables must have a unit of measurement such as % or px otherwise calc will not work! */
 $header-left-width: 20%;
 $header-right-width: 20%;
 $header-center-width: calc( 100% - #{$header-right-width} - #{$header-left-width} );
 
 /* footer */
+/* left and right variables must have a unit of measurement such as % or px otherwise calc will not work! */
 $footer-left-width: 500px;
 $footer-right-width: 450px;
 $footer-center-width: calc( 100% - #{$footer-right-width} - #{$footer-left-width} );
