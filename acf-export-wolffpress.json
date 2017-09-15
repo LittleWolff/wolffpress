@@ -401,6 +401,38 @@
                                 "maxlength": "",
                                 "readonly": 0,
                                 "disabled": 0
+                            },
+                            {
+                                "key": "field_59bbef4df5aef",
+                                "label": "Add Image",
+                                "name": "add_image",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_5915bd5bc8fb8",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "thumbnail",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
                             }
                         ],
                         "min": "",
@@ -771,6 +803,124 @@
                                 },
                                 "message": "",
                                 "default_value": 0
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    {
+                        "key": "59bbda84eb50c",
+                        "name": "divided_block",
+                        "label": "Divided Block",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_59bbdc7aeb513",
+                                "label": "Container Class Name",
+                                "name": "container_class_name",
+                                "type": "text",
+                                "instructions": "Use this to add a class classes you want to add separated by spaces. Leave blank if you don't wish to add classes to this block.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": "",
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59bbdb02eb50f",
+                                "label": "Divided Element",
+                                "name": "divided_element",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 1,
+                                "max": "",
+                                "layout": "table",
+                                "button_label": "Add Row",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_59bbdb34eb510",
+                                        "label": "Image",
+                                        "name": "image",
+                                        "type": "image",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "url",
+                                        "preview_size": "thumbnail",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": ""
+                                    },
+                                    {
+                                        "key": "field_59bbdb42eb511",
+                                        "label": "Header",
+                                        "name": "header",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "readonly": 0,
+                                        "disabled": 0
+                                    },
+                                    {
+                                        "key": "field_59bbdb48eb512",
+                                        "label": "Content",
+                                        "name": "content",
+                                        "type": "textarea",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "maxlength": "",
+                                        "rows": "",
+                                        "new_lines": "br",
+                                        "readonly": 0,
+                                        "disabled": 0
+                                    }
+                                ]
                             }
                         ],
                         "min": "",

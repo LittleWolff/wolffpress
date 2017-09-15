@@ -20,7 +20,7 @@
 
 					<!-- sample footer menu, feel free to use or delete -->
 					<nav id="footer-navigation" class="footer-navigation" role="navigation">
-						<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'menu_id' => 'footer-menu' ) ); ?>
+						<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'container_id' => 'footer-menu-container', 'menu_id' => 'footer-menu' ) ); ?>
 					</nav>
 				
 				</div>

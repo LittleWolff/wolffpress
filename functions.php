@@ -189,6 +189,10 @@ function build_page_content(){
 
             build_social_links($block_num);
 
+          elseif( get_row_layout() == 'divided_block' ): 
+
+            build_divided_block($block_num);
+
           elseif( get_row_layout() == 'start_wrapper' ): 
 
             build_start_wrapper($block_num);
@@ -212,6 +216,7 @@ function build_body_block($block_num){
   $content = get_sub_field('body_content');
   $make_h1 = get_sub_field('make_h1');
   $add_class = get_sub_field('add_class');
+  $image = get_sub_field('add_image');
 
   global $first_description;
 
@@ -220,6 +225,9 @@ function build_body_block($block_num){
   }
 
   echo '<div class="block-container '.$add_class.'" id="block-' . $block_num . '">';
+  if(!empty($image)){
+    echo '<img src="'.$image.'" >';
+  }
   if(!empty($title)){
     if ($make_h1)
       echo '<h1>'.$title.'</h1>';
@@ -453,6 +461,49 @@ function build_social_links($block_num){
   echo '</div>';
 
 };
+
+function build_divided_block($block_num){
+
+    $class_name = get_sub_field('container_class_name');
+
+    if( have_rows('divided_element') ):
+
+      echo '<div class="divided-block '.$class_name.'" id="block-' . $block_num . '" >';
+      
+      while ( have_rows('divided_element') ) : the_row();
+
+        $image = get_sub_field('image');
+        $title = get_sub_field('header');
+        $content = get_sub_field('content');
+
+        echo '<div class="divided-element">';
+
+        echo    '<div class="divided-element-content">';
+
+        if(!empty($image)){
+          echo    '<img src="'.$image.'" >';
+        }
+        if(!empty($title)){
+          if ($make_h1)
+            echo  '<h1>'.$title.'</h1>';
+          else
+            echo  '<h3>'.$title.'</h3>';
+        }
+        if(!empty($content)){
+          echo    '<p>'.do_shortcode($content).'</p>';
+        }
+
+        echo    '</div>';
+
+        echo '</div>';
+
+      endwhile;
+
+    echo '</div>';
+
+    endif;
+
+}
 
 function build_start_wrapper(){
 

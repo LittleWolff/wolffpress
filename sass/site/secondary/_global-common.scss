@@ -127,7 +127,29 @@ header{
 			flex: 1 1 $header-center-width;
 	    	align-self: center;
 
-	    	ul{
+			// @media screen and (max-width: 899px){
+			// 	flex: 1 1 80%;
+			// }
+		}
+		.header-right{
+			text-align: right;
+
+			flex: 1 1 $header-right-width;
+	    	align-self: center;
+	    	a{
+			    font-family: 	$font-secondary;
+				font-size: 		$font-size-nav;
+				color: 			$color-text;
+				font-weight: 700;
+				text-decoration: none;
+			}
+
+			@media screen and (max-width: 899px){
+				display: none;
+			}
+		}
+		#site-navigation{
+			ul{
 				list-style: none;
 				margin: 0;
 				padding: 0;
@@ -157,7 +179,7 @@ header{
 		    	}
 			}
 			@media screen and (max-width: 899px){
-				flex: 1 1 80%;
+				//flex: 1 1 80%;
 				
 				.menu-toggle{
 		    		display: block;
@@ -238,7 +260,7 @@ header{
 					    }
 	    			}
 
-		    		.menu-menu-1-container{
+		    		#primary-menu-container{
 		    			position: fixed;
 		    			top: 0px;
 		    			left: 0px;
@@ -249,23 +271,6 @@ header{
     					opacity: 1;
    		    		}
 	    		}
-			}
-		}
-		.header-right{
-			text-align: right;
-
-			flex: 1 1 $header-right-width;
-	    	align-self: center;
-	    	a{
-			    font-family: 	$font-secondary;
-				font-size: 		$font-size-nav;
-				color: 			$color-text;
-				font-weight: 700;
-				text-decoration: none;
-			}
-
-			@media screen and (max-width: 899px){
-				display: none;
 			}
 		}
 	}
@@ -951,4 +956,25 @@ footer{
     margin-right: 3px;
 	top: -7px;
 	transform: rotate(-45deg);
+}
+
+/*	Divided block	*/
+.divided-block{
+	display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+	text-align: center;
+	max-width: $max-site-width;		//adjust this if you need the container to be larger or smaller.
+	.divided-element{
+		flex: 1;
+		display: inline-block;
+		text-align: center;
+		vertical-align: top;
+		min-width: 280px; 			//change this to adjust how small elements containers can get.
+		.divided-element-content{
+			margin: auto;
+			width: 90%; 			//used to automatically add spacing remove this to use the full container.
+			max-width: auto; 		//change this to change the max size of each element.
+		}
+	}
 }

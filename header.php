@@ -50,7 +50,7 @@ header-logo
 						<div class="hamburger-middle"></div>
 						<div class="hamburger-bottom"></div>
 					</div>
-					<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'menu_id' => 'primary-menu' ) ); ?>
+					<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'container_id' => 'primary-menu-container', 'menu_id' => 'primary-menu' ) ); ?>
 				</nav><!-- #site-navigation -->
 			</div>
 			<div class="header-right">
