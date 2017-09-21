@@ -93,6 +93,29 @@
                                         "disabled": 0
                                     },
                                     {
+                                        "key": "field_59c3d5b279071",
+                                        "label": "Image Position Y",
+                                        "name": "image_position_y",
+                                        "type": "number",
+                                        "instructions": "Shift the background position of the image. 0% for top, 50% for middle, 100% for bottom, -1 to ignore this field.",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": -1,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "%",
+                                        "min": -1,
+                                        "max": 100,
+                                        "step": 1,
+                                        "readonly": 0,
+                                        "disabled": 0
+                                    },
+                                    {
                                         "key": "field_59149f1c970e9",
                                         "label": "Slider Title",
                                         "name": "slider_title",
@@ -199,6 +222,29 @@
                                 "name": "image_position_x",
                                 "type": "number",
                                 "instructions": "Shift the background position of the image. 0% for left, 50% for center, 100% for right, -1 to ignore this field.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": -1,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "%",
+                                "min": -1,
+                                "max": 100,
+                                "step": 1,
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59c3d3ab95c67",
+                                "label": "Image Position Y",
+                                "name": "image_position_y",
+                                "type": "number",
+                                "instructions": "Shift the background position of the image. 0% for top, 50% for middle, 100% for bottom, -1 to ignore this field.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -986,6 +1032,253 @@
                         "sub_fields": [],
                         "min": "",
                         "max": ""
+                    },
+                    {
+                        "key": "59bfd8c6e0cf4",
+                        "name": "gallery_block",
+                        "label": "Gallery Block (One Per Page)",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_59bfd956e0cf6",
+                                "label": "Gallery Array",
+                                "name": "gallery_array",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 1,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_59bfd8d6e0cf5",
+                                            "operator": "!=",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": "",
+                                "max": "",
+                                "layout": "table",
+                                "button_label": "Add Row",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_59bfd97fe0cf7",
+                                        "label": "Gallery Image",
+                                        "name": "gallery_image",
+                                        "type": "image",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "id",
+                                        "preview_size": "thumbnail",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "field_59bfed12800f6",
+                                "label": "CPT Name",
+                                "name": "cpt_name",
+                                "type": "text",
+                                "instructions": "The slug of the custom post type name used to manage your gallery.",
+                                "required": 1,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_59bfd8d6e0cf5",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": "",
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59bfd9c5e0cf8",
+                                "label": "CPT Taxonomy",
+                                "name": "cpt_taxonomy",
+                                "type": "text",
+                                "instructions": "The slug of the custom post type taxonomy used to manage your gallery.",
+                                "required": 1,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_59bfd8d6e0cf5",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": "",
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59bfdadee0cf9",
+                                "label": "CPT Terms",
+                                "name": "cpt_terms",
+                                "type": "text",
+                                "instructions": "Leave blank to include all terms or add term slugs separated by commas to filter which posts you want to show.  ex: term1,term2,term3",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_59bfd8d6e0cf5",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": "",
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59bfd8d6e0cf5",
+                                "label": "Use CPT",
+                                "name": "use_cpt",
+                                "type": "true_false",
+                                "instructions": "Check this box if you use a custom post type to manage your gallery. Leave unchecked to use a repeater of images.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "",
+                                "default_value": 0
+                            },
+                            {
+                                "key": "field_59bfde099f2a2",
+                                "label": "Lazy Load",
+                                "name": "lazy_load",
+                                "type": "true_false",
+                                "instructions": "Check this to lazy load more images into the page. Leave unchecked to use pagination instead.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "",
+                                "default_value": 0
+                            },
+                            {
+                                "key": "field_59bfdff4025b1",
+                                "label": "Images Per Page",
+                                "name": "images_per_page",
+                                "type": "number",
+                                "instructions": "",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 12,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "min": 1,
+                                "max": "",
+                                "step": 1,
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59c190880d7dd",
+                                "label": "Thumbnail Width",
+                                "name": "thumbnail_width",
+                                "type": "text",
+                                "instructions": "The maximum width of a thumbnail image in pixels.",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 402,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "px",
+                                "maxlength": "",
+                                "readonly": 0,
+                                "disabled": 0
+                            },
+                            {
+                                "key": "field_59c190bc0d7de",
+                                "label": "Thumbnail Height",
+                                "name": "thumbnail_height",
+                                "type": "text",
+                                "instructions": "The maximum height of a thumbnail image in pixels.",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 268,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "px",
+                                "maxlength": "",
+                                "readonly": 0,
+                                "disabled": 0
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 ]
             }
@@ -1008,4 +1301,7 @@
         "active": 1,
         "description": ""
     }
-]
+]<br />
+<b>Notice</b>:  ob_end_flush(): failed to send buffer of zlib output compression (1) in <b>E:\Websites\Wolff Press\wp-includes\functions.php</b> on line <b>3721</b><br />
+<br />
+<b>Notice</b>:  ob_end_flush(): failed to send buffer of zlib output compression (1) in <b>E:\Websites\Wolff Press\wp-includes\functions.php</b> on line <b>3721</b><br />

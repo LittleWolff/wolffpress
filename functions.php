@@ -113,15 +113,31 @@ function wolffpress_scripts() {
 
   wp_enqueue_script( 'jquery' );  
 
-  wp_enqueue_script( 'flex-js', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array(), false, true); 
+  //wp_enqueue_script( 'flex-js', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array(), false, true); 
+
+  if(contains_modal()){
+    wp_enqueue_script( 'remodal-min-js', get_template_directory_uri()  . '/js/remodal.min.js', array(), false, true);
+    wp_enqueue_style( 'remodal-css', get_template_directory_uri()  . '/assets/css/remodal.css');
+    wp_enqueue_style( 'remodal-default-theme-css', get_template_directory_uri()  . '/assets/css/remodal-default-theme.css');
+  }
+
+  wp_enqueue_script( 'slick-min-js', get_template_directory_uri() . '/js/slick.min.js', array(), false, true);
 
   wp_enqueue_script( 'custom-js', get_template_directory_uri() . '/js/custom.js', array(), '20151215', true );
+
+  wp_localize_script('custom-js', 'ajaxObject', array('ajaxurl' => admin_url('admin-ajax.php')));
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wolffpress_scripts' );
+
+// function theme_localize_scripts(){
+//   wp_localize_script('custom-js', 'ajaxObject', array('ajaxurl' => admin_url('admin-ajax.php')));
+// }
+
+// add_action( 'wp_localize_scripts', 'theme_localize_scripts' );
 
 /**
  * Implement the Custom Header feature.
@@ -158,9 +174,10 @@ function build_page_content(){
 
        // loop through the rows of data
       $block_num = 0;
+      $row_num = -1;
       while ( have_rows('page_content') ) : the_row();
        $block_num++;//starts at 1
-
+       $row_num++;//starts as 0
           if( get_row_layout() == 'slider_block' ):
 
             build_slider($block_num);
@@ -192,6 +209,10 @@ function build_page_content(){
           elseif( get_row_layout() == 'divided_block' ): 
 
             build_divided_block($block_num);
+
+          elseif( get_row_layout() == 'gallery_block' ): 
+
+            build_gallery_block($block_num, $row_num);
 
           elseif( get_row_layout() == 'start_wrapper' ): 
 
@@ -296,16 +317,17 @@ function build_split_body_block($block_num){
 function build_slider($block_num){
   if( have_rows('slider_slide') ):
 
-      echo '<div class="slider-container flexslider" id="block-' . $block_num . '">';
+      echo '<div class="slider-block" id="block-' . $block_num . '">';
 
     // loop through the rows of data
-      echo "<ul class='slides'>";
+      echo "<div class='slider-container'>";
 
       while ( have_rows('slider_slide') ) : the_row();
 
         // display a sub field value
         $image = get_sub_field('slider_image');
-        $position = get_sub_field('image_position_x');
+        $position_x = get_sub_field('image_position_x');
+        $position_y = get_sub_field('image_position_y');
         $title = get_sub_field('slider_title');
         $content = get_sub_field('slider_content');
         $content_position = get_sub_field('content_position');
@@ -317,14 +339,18 @@ function build_slider($block_num){
           $first_picture = $image;
         }
 
-        if($position != -1){
-          $position = 'background-position-x: ' . $position . '%;';
+        if($position_x != -1){
+          $position_x = 'background-position-x: ' . $position_x . '%;';
         }else{
-          $position = '';
+          $position_x = '';
+        }
+        if($position_y != -1){
+          $position_y = 'background-position-y: ' . $position_y . '%;';
+        }else{
+          $position_y = '';
         }
 
-
-        echo '<li class="slider-slide slider-container" style="background-image: url(\''.$image.'\'); ' . $position .'">';
+        echo '<div class="slider-slide slider-container" style="background-image: url(\''.$image.'\'); ' . $position_x . $position_y .'">';
         
         echo  '<div class="slider-content slider-' . $content_position . '">';
         echo    '<h2>'.$title.'</h2>';
@@ -333,10 +359,10 @@ function build_slider($block_num){
         }
         echo    '</div>';
 
-        echo '</li>';
+        echo '</div>';
       endwhile;
 
-      echo '</ul>';
+      echo '</div>';
 
     echo '</div>';
 
@@ -347,7 +373,8 @@ function build_banner($block_num){
 
     // display a sub field value
     $image = get_sub_field('banner_image');
-    $position = get_sub_field('image_position_x');
+    $position_x = get_sub_field('image_position_x');
+    $position_y = get_sub_field('image_position_y');
     $title = get_sub_field('banner_title');
     $content = get_sub_field('banner_content');
     $content_position = get_sub_field('content_position');
@@ -359,14 +386,19 @@ function build_banner($block_num){
       $first_picture = $image;
     }
 
-    if($position != -1){
-      $position = 'background-position-x: ' . $position . '%;';
+    if($position_x != -1){
+      $position_x = 'background-position-x: ' . $position_x . '%;';
     }else{
-      $position = '';
+      $position_x = '';
+    }
+    if($position_y != -1){
+      $position_y = 'background-position-y: ' . $position_y . '%;';
+    }else{
+      $position_y = '';
     }
 
 
-    echo '<div class="banner-block" id="block-' . $block_num . '" style="background-image: url(\''.$image.'\'); ' . $position .'">';
+    echo '<div class="banner-block" id="block-' . $block_num . '" style="background-image: url(\''.$image.'\'); ' . $position_x . $position_y .'">';
         
         echo  '<div class="banner-content banner-' . $content_position . '">';
         echo    '<h2>'.$title.'</h2>';
@@ -523,4 +555,235 @@ function build_start_wrapper(){
 function build_end_wrapper(){
   echo '</div>';
   echo '</div>';
+}
+
+function build_gallery_block($block_num, $row_num){
+
+  $gallery_array = get_sub_field('gallery_array');
+  $posts_per_page = get_sub_field('images_per_page');
+  $use_cpt = get_sub_field('use_cpt');
+  $cpt_name = get_sub_field('cpt_name');
+  $taxonomy = get_sub_field('cpt_taxonomy');
+  $terms = get_sub_field('cpt_terms');
+  $lazy_load = get_sub_field('lazy_load');
+  $page_id = get_the_ID();
+
+  add_image_size( 'custom-size', get_sub_field('thumbnail_width'), get_sub_field('thumbnail_height') );
+
+  $gallery = buildGallery($gallery_array, $posts_per_page, $use_cpt, $cpt_name, $taxonomy, $terms, $lazy_load, $row_num, $page_id);
+
+  if(!empty($gallery[0])){
+    echo  '<div class="block-container gallery-block" id="block-' . $block_num . '">';
+    echo    $gallery[0];
+    echo  '</div>';
+  }
+
+  if(!empty($gallery[1])){
+    echo  '<div class="remodal" data-remodal-id="modal" id="gallery-modal">';
+    echo    '<div class="gallery-slider" data-posts-per-page="'.$posts_per_page.'">';
+    $gallery_slides = explode('~', $gallery[1]);
+    foreach($gallery_slides as $gallery_slide){
+      echo    $gallery_slide;
+    }
+    echo    '</div>';
+    echo  '</div>';
+  }
+}
+
+function buildGallery($gallery_array, $posts_per_page, $use_cpt, $cpt_name, $taxonomy, $terms, $lazy_load, $row_num, $page_id){
+  $paged = 1;
+  $gallery_term_array = array();
+  $results_array = array();
+  $more_pages = false;
+  $terms = str_replace(' ', '', $terms);
+  $gallery_count = 0;
+
+  if(strpos($terms, ',') !== false){
+    $terms = explode(",",$terms);
+  }
+
+  if(!empty( $_POST['paged'] )){
+    $paged = $_POST['paged'];
+  }
+  else if(get_query_var('paged')){
+    $paged = get_query_var('paged');
+  }
+  else{
+    $paged = 1;
+  }
+
+  $gallery_markup = '';
+  $gallery_markup_slider = '';
+  $gallery_slider_array = array();
+
+  if($use_cpt){
+    $gallery_term_array['taxonomy'] = $taxonomy;
+
+    $query_array = array( 'post_type' => $cpt_name, 'paged' => $paged, 'posts_per_page' => $posts_per_page , 'orderby' => 'post', 'order' => 'ASC' );
+
+    if(!empty($terms)){
+      $gallery_term_array['field'] = 'slug';
+      $gallery_term_array['terms'] = $terms;
+
+      $query_array['tax_query'] = array( $gallery_term_array );
+    }
+
+    $query = new WP_Query( $query_array );
+
+    $gallery_count = $query->found_posts;
+
+    if ( $query->have_posts() ) {
+      while ( $query->have_posts() ) {
+        $query->the_post(); 
+        $thumbnail = get_the_post_thumbnail( get_the_ID(), 'custom-size' );
+        $gallery_markup .= build_gallery_element($thumbnail);
+        $full_image = get_the_post_thumbnail( get_the_ID(), 'full' );
+        $gallery_markup_slider = build_gallery_slider_element($full_image);
+        array_push($gallery_slider_array, $gallery_markup_slider);
+
+      }
+      wp_reset_postdata();
+    }
+  }else{
+
+    $gallery_count = count($gallery_array);
+
+    $gallery_start = ($paged-1) * $posts_per_page;
+    $trimmed_gallery = array_slice($gallery_array, $gallery_start, $posts_per_page);
+
+    foreach ($trimmed_gallery as $gallery_element) {
+      $array_image = $gallery_element['gallery_image'];
+      $thumbnail = wp_get_attachment_image($array_image, 'custom-size');
+      $gallery_markup .= build_gallery_element($thumbnail);
+      $full_image = wp_get_attachment_image($array_image, 'full');
+      $gallery_markup_slider = build_gallery_slider_element($full_image);
+      array_push($gallery_slider_array, $gallery_markup_slider);
+    }
+  }
+
+  if ( ($paged * $posts_per_page) <  $gallery_count ){
+    $more_pages = true;
+  }
+
+  $page_count = ceil($gallery_count / $posts_per_page);
+
+  $gallery_markup .= build_gallery_pagination($paged, $page_count, $more_pages, $lazy_load, $row_num, $page_id);
+
+  array_push($results_array, $gallery_markup);
+  $gallery_slider_implode = implode("~", $gallery_slider_array);
+  array_push($results_array, $gallery_slider_implode);
+
+  return $results_array;
+}
+
+function build_gallery_element($image){
+  $gallery_markup = '';
+
+  $gallery_markup .=  '<div class="entry new">';
+  $gallery_markup .=    '<div class="popup-gallery">';
+  $gallery_markup .=      '<a href="#" data-remodal-target="modal" class="gallery-image">' . $image . ' </a>';
+  $gallery_markup .=    '</div>';
+  $gallery_markup .=  '</div>';
+
+  return $gallery_markup;
+}
+
+function build_gallery_slider_element($image){
+  $slide_markup = '';
+
+  $slide_markup .=  '<div>';
+  $slide_markup .=    '<div class="background-slide">';
+  $slide_markup .=      $image;
+  $slide_markup .=    '</div>';
+  $slide_markup .=  '</div>';
+
+  return $slide_markup;
+}
+
+function build_gallery_pagination($paged, $page_count, $more_pages, $lazy_load ,$row_num, $page_id){
+
+  $pagination_markup = '';
+  
+  $url = get_nopaging_url();
+  
+  if($page_count != 0){
+
+    if(!$lazy_load){
+      $page_offset = 2; //change this to add more of less pages to the pagination
+      $pagination_markup .= '<div class="pagination-container">';
+
+      if($paged - 1 > 0){
+        $pagination_markup .= '<a class="pagination-next" href="' . $url . 'page/'.($paged-1).'"><</a>';
+      }
+      for($i = $paged - $page_offset; $i <= $paged + $page_offset; $i++){
+        if($i == $paged){
+          $pagination_markup .= '<a class="current-page pagination-link">'.$i.'</a>';
+        }
+        else if($i > 0 && $i <= $page_count ){
+          $pagination_markup .= '<a class="pagination-link" href="' . $url . 'page/'.$i.'">'.$i.'</a>';
+        }
+      }
+      if($paged + 1 <= $page_count){
+        $pagination_markup .= '<a class="pagination-next" href="' . $url . 'page/'.($paged+1).'">></a>';
+      }
+      $pagination_markup .= '</div>';
+    }else if($more_pages){
+      $pagination_markup = '<div class="view-more" data-gallery-row="' . $row_num . '" data-page-id="' . $page_id . '"><p>Scroll For More</p><img src="/wp-content/themes/wolffpress/assets/images/down_arrow.png"></div>';
+    }
+  }
+
+  return $pagination_markup;
+}
+
+function addGalleryAjax(){
+
+  $page_id =  $_POST['page_id'];
+  $row_num = $_POST['gallery_row'];
+  $page_content = get_field("page_content", $page_id)[$row_num];
+
+  $gallery_array = $page_content['gallery_array'];
+  $posts_per_page = $page_content['images_per_page'];
+  $use_cpt = $page_content['use_cpt'];
+  $cpt_name = $page_content['cpt_name'];
+  $taxonomy = $page_content['cpt_taxonomy'];
+  $terms = $page_content['cpt_terms'];
+  $lazy_load = $page_content['lazy_load'];
+
+  $gallery = buildGallery($gallery_array, $posts_per_page, $use_cpt, $cpt_name, $taxonomy, $terms, $lazy_load, $row_num, $page_id);
+
+  echo json_encode($gallery);
+
+  die();
+}
+
+
+add_action( 'wp_ajax_nopriv_addGalleryAjax', 'addGalleryAjax' );
+add_action( 'wp_ajax_addGalleryAjax', 'addGalleryAjax' );
+
+
+function get_nopaging_url() {
+
+    global $wp;
+
+    $current_url =  home_url( $wp->request );
+    $position = strpos( $current_url , '/page' );
+    $nopaging_url = ( $position ) ? substr( $current_url, 0, $position ) : $current_url;
+
+    return trailingslashit( $nopaging_url );
+
+}
+
+function contains_modal(){
+  $content_array = get_field("page_content");
+  $has_modal = false;
+
+  if(!empty($content_array)){
+    foreach($content_array as $content_element){
+      if($content_element['acf_fc_layout'] == 'gallery_block'){
+        $has_modal = true;
+      }
+    }
+  }
+
+  return $has_modal;
 }
