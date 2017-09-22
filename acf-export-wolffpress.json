@@ -1301,7 +1301,4 @@
         "active": 1,
         "description": ""
     }
-]<br />
-<b>Notice</b>:  ob_end_flush(): failed to send buffer of zlib output compression (1) in <b>E:\Websites\Wolff Press\wp-includes\functions.php</b> on line <b>3721</b><br />
-<br />
-<b>Notice</b>:  ob_end_flush(): failed to send buffer of zlib output compression (1) in <b>E:\Websites\Wolff Press\wp-includes\functions.php</b> on line <b>3721</b><br />
+]
